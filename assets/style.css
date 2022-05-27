@@ -1,9 +1,5 @@
-* {
-    margin: 15px;
-}
-
 header {
-    margin-bottom: 250px;
+    margin:15px 25px 250px 25px;
 }
 header h4 {
     float: right;
@@ -26,6 +22,18 @@ main {
     margin-bottom: 50px;
 }
 
-ol {
-    list-style-type: lower-alpha;
+#answers {
+    list-style-type: none;
+    text-align: left;
+    margin: 0;
+}
+
+.answer-btn {
+    width: 100%;
+    text-align: left;
+    height: 50px;
+}
+
+#questions-container {
+    width: 640px;
 }
