@@ -25,3 +25,7 @@ main {
 #intro-text {
     margin-bottom: 50px;
 }
+
+ol {
+    list-style-type: lower-alpha;
+}
