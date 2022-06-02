@@ -42,3 +42,16 @@ textarea {
     resize: none;
     font-size: 38px;
 }
+
+h1 {
+    font-size: 48px;
+    margin-top: 150px;
+    text-align: center;
+}
+
+#leaderboard {
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+    font-size: 44px;
+}

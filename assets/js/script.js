@@ -39,7 +39,7 @@ var countdown = function() {
         timerText.innerText = "Time: " + timer;
     }
     if (timer === 0) {
-        allDone();
+        timesOut();
     }
 }
 
@@ -206,9 +206,14 @@ var allDone = function() {
                 score: timer
             })
         window.localStorage.setItem("savedScores", JSON.stringify(updatedScores))
-        location.href = "leaderboard.html";
+        location.href = "./assets/leaderboard.html";
     })
 
     clearInterval();
+}
+
+let timesOut = function() {
+    questionAnswers.remove();
+    questionPrompt.innerText = "Sorry, the time ran out! Please try again."
 }
 
