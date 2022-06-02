@@ -1,8 +1,11 @@
 var mainDiv = document.querySelector("main");
+var startDiv = document.querySelector("#start-info");
 var startBtn = document.querySelector("#start-btn");
 var timerText = document.querySelector("#timer")
 var timer = 75;
 var isDone = false;
+
+var savedScores = [];
 
 var question1Div = document.createElement("div");
 var questionPrompt = document.createElement("h2");
@@ -21,8 +24,10 @@ startBtn.addEventListener("click", function(){
         quiz();
 });
 
+
+
 var quiz = function()  {
-    var startDiv = document.querySelector("#start-info");
+    
     startDiv.remove()
     setInterval(countdown, 1000)
     question1();
@@ -32,6 +37,9 @@ var countdown = function() {
     if (timer > 0 && !isDone){
         timer--;
         timerText.innerText = "Time: " + timer;
+    }
+    if (timer === 0) {
+        allDone();
     }
 }
 
@@ -56,21 +64,18 @@ var question1 = function() {
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question2, 1000)
     });
 
     answer3.addEventListener("click", function(){
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question2, 1000)
     });
 
     answer4.addEventListener("click", function(){
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question2, 1000)
     });
 }
 
@@ -92,21 +97,18 @@ var question2 = function() {
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question3, 1000)
     });
 
     answer3.addEventListener("click", function(){
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question3, 1000)
     });
 
     answer4.addEventListener("click", function(){
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question3, 1000)
     });
 }
 
@@ -128,21 +130,18 @@ var question3 = function() {
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question4, 1000)
     });
 
     answer3.addEventListener("click", function(){
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question4, 1000)
     });
 
     answer4.addEventListener("click", function(){
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(question4, 1000)
     });
 }
 
@@ -166,7 +165,6 @@ var question4 = function() {
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(allDone, 1000)
     });
 
     answer3.addEventListener("click", function(){
@@ -174,7 +172,6 @@ var question4 = function() {
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(allDone, 1000)
     });
 
     answer4.addEventListener("click", function(){
@@ -182,13 +179,36 @@ var question4 = function() {
         rightOrWrong.innerText = "Sorry that's incorrect!";
         timer = timer - 10;
         question1Div.append(rightOrWrong);
-        setTimeout(allDone, 1000)
     });
 }
 
 var allDone = function() {
     questionAnswers.remove();
     questionPrompt.innerText = "ALL DONE!";
+
+    var currentScore = document.createElement("h3");
+    currentScore.innerText = "Your final score is " + timer + ".";
+
+    var scoreSaver = document.createElement("p");
+    scoreSaver.innerHTML = "Enter your initials: <textarea id='scoreInitials' maxlength='10'></textarea><input id='submit' type='submit'>"
+
+    question1Div.append(currentScore, scoreSaver);
+
+    var saveBtn = document.querySelector("#submit");
+    var scoreInitials = document.querySelector("#scoreInitials");
+    saveBtn.addEventListener("click", function() {
+        var updatedScores = JSON.parse(localStorage.getItem("savedScores"));
+        if(updatedScores == null){
+            updatedScores = [];
+        }
+        updatedScores.push( {
+                initials: scoreInitials.value,
+                score: timer
+            })
+        window.localStorage.setItem("savedScores", JSON.stringify(updatedScores))
+        location.href = "leaderboard.html";
+    })
+
     clearInterval();
 }
 
